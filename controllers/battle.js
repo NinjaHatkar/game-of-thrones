@@ -21,6 +21,8 @@ BattleController.count = function(req, res) {
     });
 }
 
+//TODO: Error Handling 
+//      Add validation for query parameters 
 BattleController.search = function(req, res) {
     var searchQuery = {$and:[]}
     if(req.query.king){
@@ -41,7 +43,6 @@ BattleController.search = function(req, res) {
             'battle_type':{$eq: req.query.type}
         })
     }
-    console.log(JSON.stringify(searchQuery))
     Battle.find(searchQuery,function(err, count) {
         if (err)
             res.send(err);
@@ -58,8 +59,6 @@ BattleController.stats = function(req, res) {
         getMostActive('region'),
         getMostActive('name'),
     ]).then(function(values) {
-        console.log(JSON.stringify(values[1]))
-
         var stats = {
             'most_active': {
                 'attacker_king': values[3][0]._id.mostActive,
@@ -78,7 +77,8 @@ BattleController.stats = function(req, res) {
                 'max': values[1][0].max
             }
         }
-        res.json(stats)
+        res.json(stats)        
+        
     }).catch(function(err) {
         console.log(err);
         res.send('error')
@@ -86,6 +86,7 @@ BattleController.stats = function(req, res) {
 
 }
 
+//Helper methods for stats
 var getAttackerOutCome = function() {
     return new Promise((resolve, reject) => { 
         Battle.aggregate([{
