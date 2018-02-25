@@ -34,4 +34,4 @@ var BattleSchema   = new Schema({
     note: String
 });
 
-module.exports = mongoose.model('Battle', BattleSchema, 'battle')
+module.exports = mongoose.model('Battle', BattleSchema, 'battles')
