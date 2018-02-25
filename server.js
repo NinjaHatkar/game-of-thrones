@@ -1,4 +1,3 @@
-
 const express = require('express')
 const app = express()
 const config = require('./config')
@@ -19,9 +18,10 @@ var dbconfig = config[env].db;
 if(dbconfig.name && dbconfig.host ) {
     var auth = ''
     if(dbconfig.usernmae && dbconfig.usernmae) {
-        auth =  dbconfig.usernmae || '' +':'+dbconfig.password+'@'
+        auth =  dbconfig.usernmae +':'+dbconfig.password+'@'
     }
     var connectionString = 'mongodb://'+auth+dbconfig.host+':'+dbconfig.port+'/'+dbconfig.name
+    console.log(connectionString)
     mongoose.connect(connectionString)
 } else {
     if(dbconfig.name) {
