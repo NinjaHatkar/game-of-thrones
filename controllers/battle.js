@@ -4,13 +4,11 @@ var BattleController = {}
 
 
 BattleController.list = function(req, res) {
-    this.prototype.list = function(){
         Battle.find(function(err, battles) {
             if(err)
                 res.send(err);
             res.json(battles);
         })
-    }
 }
 
 BattleController.count = function(req, res) {
